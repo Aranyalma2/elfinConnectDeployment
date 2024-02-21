@@ -14,6 +14,7 @@ cd production
 mkdir -p certbot/conf && mkdir -p certbot/www
 docker build -t elfin-production:latest .
 ```
+
 ###Generate new certificate
 Start a mock webserver for certificate generation.
 
@@ -30,6 +31,7 @@ docker run -d \
 ```
 
 Run *certbot* for certificate generate.
+
 ```sh
 docker run -it --rm \
   --name certbot \
@@ -39,11 +41,12 @@ docker run -it --rm \
   certonly --webroot --webroot-path /var/www/certbot/ -d test.remoteconnect.hu
 ```
 After a valid certificate, delete the mock webserver.
+
 ```sh
 docker rm mock-nginx
 ```
 
-###Place existing certificate
+### Place existing certificate
 > (Ignore this if you used upper certbot method)
 
 The webserver container will pull the certificate files under the** ./certbot/conf/[YOUR_DOMAIN]/** NGNIX need** ssl_certificate** and **ssl_certificate_key values**._
@@ -51,8 +54,9 @@ The webserver container will pull the certificate files under the** ./certbot/co
 - ssl_certificate from: ./certbot/conf/[YOUR_DOMAIN]/fullchain.pem;
 - ssl_certificate_key from: ./certbot/conf/[YOUR_DOMAIN]/privkey.pem;
 
-##Start Elfin Connect Service
+## Start Elfin Connect Service
 Set your domain name in docker-compose.yml (line 23).
+
 ```yml
 version: '3.6'
 
@@ -92,6 +96,7 @@ volumes:
       mongo-config-test
 ```
 Create and run compose stack:
-```
+
+```sh
 docker compose up -d
 ```
