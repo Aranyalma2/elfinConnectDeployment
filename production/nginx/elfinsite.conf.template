@@ -1,0 +1,53 @@
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+
+    ssl_certificate /etc/nginx/ssl/live/${NGINX_HOST}/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/${NGINX_HOST}/privkey.pem;
+
+    return 444;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name www.${NGINX_HOST} ${NGINX_HOST};
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+    location / {
+        return 301 https://${NGINX_HOST}$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name www.${NGINX_HOST} ${NGINX_HOST};
+
+    ssl_certificate /etc/nginx/ssl/live/${NGINX_HOST}/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/${NGINX_HOST}/privkey.pem;
+    
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /upload {
+        client_max_body_size 1000M;  # Adjust the maximum allowed request size
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}

@@ -1,0 +1,36 @@
+version: '3.6'
+
+services:
+
+  mongo:
+    image: mongo:4.4.25
+    restart: always
+    volumes:
+      - 'mongovolume-db:/data/db'
+      - 'mongovolume-config:/data/configdb'
+  
+  elfin:
+    image: elfin-development
+    restart: always
+    volumes:
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    environment:
+      - NGINX_HOST=[YOUR-DOMAIN]
+    links:
+      - "mongo:database"
+      
+volumes:
+  mongovolume-db:
+    external: true
+    name:
+      mongo-data-test
+  
+  mongovolume-config:
+    external: true
+    name:
+      mongo-config-test
