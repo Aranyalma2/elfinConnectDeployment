@@ -15,7 +15,7 @@ mkdir -p certbot/conf && mkdir -p certbot/www
 docker build -t elfin-production:latest .
 ```
 
-###Generate new certificate
+### Generate new certificate
 Start a mock webserver for certificate generation.
 
 ```sh
@@ -49,7 +49,7 @@ docker rm mock-nginx
 ### Place existing certificate
 > (Ignore this if you used upper certbot method)
 
-The webserver container will pull the certificate files under the** ./certbot/conf/[YOUR_DOMAIN]/** NGNIX need** ssl_certificate** and **ssl_certificate_key values**._
+The webserver container will pull the certificate files under the **./certbot/conf/[YOUR_DOMAIN]/** NGNIX need **ssl_certificate** and **ssl_certificate_key values**._
 
 - ssl_certificate from: ./certbot/conf/[YOUR_DOMAIN]/fullchain.pem;
 - ssl_certificate_key from: ./certbot/conf/[YOUR_DOMAIN]/privkey.pem;
@@ -58,42 +58,8 @@ The webserver container will pull the certificate files under the** ./certbot/co
 Set your domain name in docker-compose.yml (line 23).
 
 ```yml
-version: '3.6'
-
-services:
-
-  mongo:
-    image: mongo:4.4.25
-    restart: always
-    volumes:
-      - 'mongovolume-db:/data/db'
-      - 'mongovolume-config:/data/configdb'
-  
-  elfin:
-    image: elfin-production:latest
-    restart: always
-    volumes:
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
     environment:
       - NGINX_HOST=[YOUR-DOMAIN]
-    links:
-      - "mongo:database"
-      
-volumes:
-  mongovolume-db:
-    external: true
-    name:
-      mongo-data-test
-  
-  mongovolume-config:
-    external: true
-    name:
-      mongo-config-test
 ```
 Create and run compose stack:
 

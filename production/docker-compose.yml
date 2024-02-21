@@ -28,9 +28,9 @@ volumes:
   mongovolume-db:
     external: true
     name:
-      mongo-data-test
+      mongo-data-production
   
   mongovolume-config:
     external: true
     name:
-      mongo-config-test
+      mongo-config-production
