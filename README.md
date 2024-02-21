@@ -49,7 +49,7 @@ docker rm mock-nginx
 ### Place existing certificate
 > (Ignore this if you used upper certbot method)
 
-The webserver container will pull the certificate files under the **./certbot/conf/<span style="color:red">YOUR_DOMAIN</span>/** NGNIX need **ssl_certificate** and **ssl_certificate_key values**.
+The webserver container will pull the certificate files under the **./certbot/conf/[YOUR_DOMAIN]/** NGNIX need **ssl_certificate** and **ssl_certificate_key values**.
 
 - ssl_certificate from: ./certbot/conf/[YOUR_DOMAIN]/fullchain.pem;
 - ssl_certificate_key from: ./certbot/conf/[YOUR_DOMAIN]/privkey.pem;
