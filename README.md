@@ -16,7 +16,7 @@ docker build -t elfin-production:latest .
 ```
 
 ### Generate new certificate
-Start a mock webserver for certificate generation.
+Start a mock webserver for http based certifaction.
 
 ```sh
 docker run -d \
