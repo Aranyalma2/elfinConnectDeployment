@@ -15,8 +15,9 @@ WORKDIR /app
 # Copy PM2 configuration file
 COPY ecosystem.config.js ./
 
-# Copy Nginx configuration template file
-COPY ./nginx/ /etc/nginx/templates/
+# Copy Nginx configuration and template files
+COPY ./nginx/nginx.conf /etc/nginx/
+COPY ./nginx/conf.d/ /etc/nginx/templates/
 
 # Clone ElfinConnectWeb repository
 RUN git clone --branch production [REPOSITORY-WEB]
@@ -36,6 +37,7 @@ RUN npm install
 EXPOSE 80
 EXPOSE 8080
 EXPOSE 443
+EXPOSE 8443
 
 WORKDIR /
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh

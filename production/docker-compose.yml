@@ -8,9 +8,9 @@ services:
     volumes:
       - 'mongovolume-db:/data/db'
       - 'mongovolume-config:/data/configdb'
-  
+
   elfin:
-    image: elfin-development
+    image: elfin-production
     restart: always
     volumes:
       - ./certbot/www:/var/www/certbot/:ro
@@ -19,18 +19,17 @@ services:
       - 80:80
       - 443:443
       - 8080:8080
+      - 8443:8443
     environment:
-      - NGINX_HOST=[YOUR-DOMAIN]
+      - NGINX_HOST=test.remoteconnect.hu
     links:
       - "mongo:database"
-      
+
 volumes:
   mongovolume-db:
     external: true
-    name:
-      mongo-data-production
-  
+    name: mongo-data-production
+
   mongovolume-config:
     external: true
-    name:
-      mongo-config-production
+    name: mongo-config-production
