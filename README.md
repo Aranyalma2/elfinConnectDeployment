@@ -3,7 +3,7 @@ Deploy the service on Docker. Support certificate generation with certbot, or us
 
 ------------
 
-## Install and Deploy in Production Enviroment
+## Install and Deploy in Production enviroment
 
 Elfin Connect server side requires docker and docker compose on host machine.
 Paths are relative to the production/test folder.
@@ -107,7 +107,7 @@ docker run -it --rm --name certbot -v ./certbot/www:/var/www/certbot -v ./certbo
 
 ------------
 
-## Install and Deploy in Development Enviroment
+## Install and Deploy in Development enviroment
 Use the development folder contents and change all the docker build commands to use the 
 ":development" taged images instead of ":production". 
 ```
