@@ -1,5 +1,5 @@
 # Elfin Connect deployment process
-Deploy the service on Docker. Supported certificate generation method with certbot, or use an already generated certificate. Support Dynamic-DNS updating by HTTP fetch.
+Deploy the service on Docker. Support certificate generation with certbot, or use an existing certificate. Support Dynamic-DNS updating by HTTP fetch.
 
 ------------
 
@@ -9,7 +9,7 @@ Elfin Connect server side requires docker and docker compose on host machine.
 Paths are relative to the production/test folder.
 Tested on debian linux host.
 
-### Build the *elfin:production* container
+### Build the *elfin* container
 
 ```sh
 cd production
@@ -107,14 +107,14 @@ docker run -it --rm --name certbot -v ./certbot/www:/var/www/certbot -v ./certbo
 
 ------------
 
-## Install and Deploy in Test Enviroment
-Use the test folder contents and change all the docker build commands to use the 
-":test" taged images instead of ":production". 
+## Install and Deploy in Development Enviroment
+Use the development folder contents and change all the docker build commands to use the 
+":development" taged images instead of ":production". 
 ```
-docker build -t elfin:test .
+docker build -t elfin:development .
 ```
 Change persistence volume names:
 ```
-mongo-data-test
-mongo-config-test
+mongo-data-development
+mongo-config-development
 ```

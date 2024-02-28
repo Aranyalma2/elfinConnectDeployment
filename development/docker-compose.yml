@@ -1,0 +1,43 @@
+version: '3.6'
+
+services:
+
+  mongo:
+    image: mongo:4.4.25
+    restart: always
+    volumes:
+      - 'mongovolume-db:/data/db'
+      - 'mongovolume-config:/data/configdb'
+
+  elfin:
+    image: elfinconnect:development
+    restart: always
+    depends_on:
+      - mongo
+    volumes:
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+      - 8443:8443
+    environment:
+      - NGINX_HOST=[YOUR_DOMAIN]
+    links:
+      - "mongo:database"
+
+#  dynamic-dns:
+#    image: dns-update
+#    restart: always
+#    environment:
+#      - DYNAMIC_DNS_URL=[PUBLIC_DNS_PROVIDER_ADDRESS]
+
+volumes:
+  mongovolume-db:
+    external: true
+    name: mongo-data-development
+
+  mongovolume-config:
+    external: true
+    name: mongo-config-development
