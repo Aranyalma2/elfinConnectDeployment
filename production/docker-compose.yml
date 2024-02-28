@@ -10,8 +10,10 @@ services:
       - 'mongovolume-config:/data/configdb'
 
   elfin:
-    image: elfin-production
+    image: elfinconnect:production
     restart: always
+    depends_on:
+      - mongo
     volumes:
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
@@ -21,9 +23,15 @@ services:
       - 8080:8080
       - 8443:8443
     environment:
-      - NGINX_HOST=test.remoteconnect.hu
+      - NGINX_HOST=[YOUR_DOMAIN]
     links:
       - "mongo:database"
+
+#  dynamic-dns:
+#    image: dns-update
+#    restart: always
+#    environment:
+#      - DYNAMIC_DNS_URL=[PUBLIC_DNS_PROVIDER_ADDRESS]
 
 volumes:
   mongovolume-db:

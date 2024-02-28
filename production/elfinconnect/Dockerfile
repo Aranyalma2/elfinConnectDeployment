@@ -3,7 +3,7 @@ FROM nginx
 
 # Install Node.js and npm
 RUN apt-get update && \
-    apt-get install -y nodejs npm && \
+    apt-get install -y nodejs npm &&\
     rm -rf /var/lib/apt/lists/*
 
 #Install PM2 manager globally
@@ -33,7 +33,7 @@ WORKDIR /app/elfinConnectServer
 # Install app dependencies
 RUN npm install
 
-# Expose port 80,443,8080
+# Expose port 80,443,8080,8443
 EXPOSE 80
 EXPOSE 8080
 EXPOSE 443
