@@ -1,5 +1,5 @@
 # Elfin Connect deployment process
-Deploy the service in Docker. Support certificate generation method with certbot, or use already genereted certificate. Support Dynamic-DNS updating by HTTP fetch.
+Deploy the service on Docker. Supported certificate generation method with certbot, or use an already generated certificate. Support Dynamic-DNS updating by HTTP fetch.
 
 ------------
 
@@ -16,7 +16,7 @@ docker build -t elfin:production .
 ```
 
 ### Generate new certificate
-Start a mock webserver for http based certifaction.
+Start a mock webserver for http based certifaction get method.
 
 ```sh
 docker run -d \
@@ -64,7 +64,7 @@ The webserver container will pull the certificate files under the **./certbot/co
 ```
 
 #### Optional dynamic dns
-If your public DNS provider use dynamic DNS update by HTTP fetching.
+If your public DNS provider uses dynamic DNS update by HTTP fetching.
 * Build dns-update image.
 ```sh
 cd dns-update
@@ -92,7 +92,7 @@ docker compose up -d
 ```
 
 > [!CAUTION]
-> Certbot method use Let's Encrypt certifacte only valid for 3 month, you have to renew it for proper working.
+> The Certbot method uses Let's Encrypt the certificate, which is only valid for 3 months. You have to renew it for proper functioning.
 ```sh
 docker run -it --rm --name certbot -v ./certbot/www:/var/www/certbot -v ./certbot/conf:/etc/letsencrypt certbot/certbot:latest renew
 ```
