@@ -5,14 +5,22 @@ Deploy the service on Docker. Supported certificate generation method with certb
 
 ## Install and Deploy in Production Enviroment
 
-Elfin connect server side requires docker and docker compose.
+Elfin Connect server side requires docker and docker compose on host machine.
+Paths are relative to the production/test folder.
+Tested on debian linux host.
 
-Build the *elfin:production* container:
+### Build the *elfin:production* container
 
 ```sh
 cd production
 mkdir -p certbot/conf && mkdir -p certbot/www
 docker build -t elfin:production .
+```
+
+### Create persistent volumes for the database
+```sh
+docker volume create mongo-data-production
+docker volume create mongo-config-production
 ```
 
 ### Generate new certificate
@@ -92,7 +100,21 @@ docker compose up -d
 ```
 
 > [!CAUTION]
-> The Certbot method uses Let's Encrypt the certificate, which is only valid for 3 months. You have to renew it for proper functioning.
+> The Certbot method uses Let's Encrypt the certificate, which is only valid for 3 months. You have to renew it before expiry date for proper functioning.
 ```sh
 docker run -it --rm --name certbot -v ./certbot/www:/var/www/certbot -v ./certbot/conf:/etc/letsencrypt certbot/certbot:latest renew
+```
+
+------------
+
+## Install and Deploy in Test Enviroment
+Use the test folder contents and change all the docker build commands to use the 
+":test" taged images instead of ":production". 
+```
+docker build -t elfin:test .
+```
+Change persistence volume names:
+```
+mongo-data-test
+mongo-config-test
 ```
