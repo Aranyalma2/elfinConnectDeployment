@@ -2,6 +2,13 @@
 Deploy the service on Docker. Support certificate generation with certbot, or use an existing certificate. Support Dynamic-DNS updating by HTTP fetch.
 
 ------------
+## Why this project exists?
+
+Hyfling IoT and PLC manufacturing company has remote access for they devices. BUT Bridge server is very skecy and has some critical design flaw. The most annoying is the servers located only in China and has NO ENCRYPTION.
+
+This project create a very similar solution, but it can used with the factory firmware. The IoT device's socket connect your secure self hosted server. Basicly this is a tcp gateway from your local pc to the end device. 
+
+------------
 
 ## Install and Deploy in Production enviroment
 
