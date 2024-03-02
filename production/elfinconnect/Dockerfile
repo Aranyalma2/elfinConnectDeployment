@@ -20,10 +20,10 @@ COPY ./nginx/nginx.conf /etc/nginx/
 COPY ./nginx/conf.d/ /etc/nginx/templates/
 
 # Clone ElfinConnectWeb repository
-RUN git clone --branch production [REPOSITORY-WEB]
+RUN git clone --branch production https://github.com/Aranyalma2/elfinConnectWeb.git
 
 # Clone ElfinConnectServer repository
-RUN git clone --branch production [REPOSITORY-SERVER]
+RUN git clone --branch production https://github.com/Aranyalma2/elfinConnectServer.git
 
 WORKDIR /app/elfinConnectWeb
 # Install app dependencies
