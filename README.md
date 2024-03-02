@@ -14,7 +14,9 @@ Tested on debian linux host.
 ```sh
 cd production
 mkdir -p certbot/conf && mkdir -p certbot/www
-docker build -t elfin:production .
+cd elfinconnect
+docker build -t elfinconnect:production .
+cd ..
 ```
 
 ### Create persistent volumes for the database
@@ -31,8 +33,7 @@ docker run -d \
   --name mock-nginx \
   -p 80:80 \
   -p 443:443 \
-  -e NGINX_HOST='[YOUR_DOMAIN]' \
-  -v /mock/conf:/etc/nginx/conf.d \
+  -v ./mock/:/etc/nginx/conf.d \
   -v ./certbot/www:/var/www/certbot \
   -v ./certbot/conf:/etc/letsencrypt \
   nginx:latest
@@ -51,7 +52,7 @@ docker run -it --rm \
 After a valid certificate, delete the mock webserver conatainer.
 
 ```sh
-docker rm mock-nginx
+docker rm -f mock-nginx
 ```
 
 ### Place existing certificate
@@ -77,6 +78,7 @@ If your public DNS provider uses dynamic DNS update by HTTP fetching.
 ```sh
 cd dns-update
 docker build -t dns-update:latest .
+cd ..
 ```
 * Uncomment dynamic-dns service (line 28-32).
 ```yml
