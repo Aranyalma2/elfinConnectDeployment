@@ -120,7 +120,7 @@ docker run -it --rm --name certbot -v ./certbot/www:/var/www/certbot -v ./certbo
 Use the development folder contents and change all the docker build commands to use the 
 ":development" taged images instead of ":production". 
 ```
-docker build -t elfin:development .
+docker build -t elfinconnect:development .
 ```
 Change persistence volume names:
 ```
