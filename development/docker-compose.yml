@@ -24,13 +24,12 @@ services:
       - 8443:8443
     environment:
       - NGINX_HOST=[YOUR_DOMAIN]
-      - NODE_ENV: "development"
-      - PORT: 3000
-      - DATABASE: "database:27017"
-      - DATABASE_COLLECTION: "elfinconnect"
-      - GATEWAY_SERVER_IP: "localhost"
-      - GATEWAY_SERVER_PORT: 3001
-      - GATEWAY_SERVER_TIMEOUT: 30000
+      - WEBPORT=3000
+      - DATABASE=database:27017
+      - DATABASE_COLLECTION=elfinconnect
+      - GATEWAY_SERVER_IP=localhost
+      - GATEWAY_SERVER_PORT=3001
+      - GATEWAY_SERVER_TIMEOUT=30000
     links:
       - "mongo:database"
 
