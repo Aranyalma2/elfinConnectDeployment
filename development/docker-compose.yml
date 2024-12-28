@@ -25,13 +25,11 @@ services:
     environment:
       - NGINX_HOST=[YOUR_DOMAIN]
       - WEBPORT=3000
-      - DATABASE=database:27017
+      - DATABASE=mongo:27017
       - DATABASE_COLLECTION=elfinconnect
       - GATEWAY_SERVER_IP=localhost
       - GATEWAY_SERVER_PORT=3001
       - GATEWAY_SERVER_TIMEOUT=30000
-    links:
-      - "mongo:database"
 
 #  dynamic-dns:
 #    image: dns-update
